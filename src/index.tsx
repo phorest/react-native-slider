@@ -770,7 +770,10 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                     <View
                         renderToHardwareTextureAndroid
                         style={[
-                            styles.track,
+                            {
+                                ...styles.track,
+                                width: this.state.containerSize.width,
+                            },
                             {
                                 backgroundColor: maximumTrackTintColor,
                             },
@@ -836,7 +839,17 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                         </Animated.View>
                     ))}
                     <View
-                        style={[styles.touchArea, touchOverflowStyle]}
+                        style={[
+                            {
+                                ...styles.touchArea,
+                                width:
+                                    this.state.containerSize.width +
+                                    thumbSize.width,
+                                position: 'absolute',
+                                left: -thumbSize.width / 2,
+                            },
+                            touchOverflowStyle,
+                        ]}
                         {...this._panResponder.panHandlers}>
                         {!!debugTouchArea &&
                             interpolatedThumbValues.map((value, i) =>
